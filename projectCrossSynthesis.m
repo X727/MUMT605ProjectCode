@@ -3,11 +3,11 @@ N = 1024;
 hop = 256;
 w1 = hanning(N);
 w2 = w1;
-order1 = 30;
-order2 = 30;
+order1 = 150;
+order2 = 150;
 
 %Read in audio signal
-[sound1, fs] = audioread('./solfege-la.wav');
+[sound1, fs] = audioread('./xjs-14-xsynth-speech-car-cow.wav');
 sound2 = audioread('./xjs-14-xsynth-speech-mod.wav');
 freq=(0:N-1)/N*fs/1000;      % frequencies in kHz
 
