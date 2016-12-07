@@ -3,23 +3,25 @@ N = 1024;
 hop = 256;
 w1 = hanning(N);
 w2 = w1;
-order1 = 150;
-order2 = 150;
+order1 = 30;
+order2 = 30;
 
-%Read in audio signal
-[sound1, fs] = audioread('./xjs-14-xsynth-speech-car-cow.wav');
-sound2 = audioread('./xjs-14-xsynth-speech-mod.wav');
-freq=(0:N-1)/N*fs/1000;      % frequencies in kHz
+%Read in audio signals to cross synthesize
+[sound1, fs] = audioread('../Audio/SourceSounds/xjs-14-xsynth-speech-car-plane.wav');
+sound2 = audioread('../Audio/SourceSounds/xjs-14-xsynth-speech-mod.wav');
 
 %Reduce to 1 channel (if necessary) and pad with zeros
 L = min(length(sound1), length(sound2));
 sound1 = [zeros(N,1); sound1(:, 1); zeros(N-mod(L,hop),1)]/max(abs(sound1(:,1)));
 sound2 = [zeros(N,1); sound2(:, 1); zeros(N-mod(L,hop),1)]/max(abs(sound2(:,1)));
 
+%Initialize buffer for output sound 
 soundOut = zeros(L, 1);
+%Initialize start point and end point for overlap add
 startPt = 0;
 endPt = L-N;
 
+%While there are still samples to process
 while startPt < endPt
     %Take a windowed frame of each sound
     frame1 = sound1(startPt+1:startPt+N).*w1;
@@ -51,11 +53,15 @@ while startPt < endPt
     %Pass the frame of sound1 and take the ifft
     frameOut = (real(ifft(FFTframe1.*H))).*w2;
     
-    %Add frame to final output sound
+    %Overlap and Add output sound
     soundOut(startPt+1:startPt+N) = soundOut(startPt+1:startPt+N)+frameOut;
     
     %Add hop size to start point to get next frame
     startPt = startPt+hop;
 end
 
-%audiowrite('CrossSynthSound.wav', soundOut, fs);
+%Normalize output sound
+soundOut = soundOut/max(soundOut);
+
+%Write output sound to file
+audiowrite('../Audio/OutputSounds/PlaneModulated.wav', soundOut, fs);
