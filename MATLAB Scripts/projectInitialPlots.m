@@ -1,13 +1,25 @@
+%//////////////////////////////////////////////////////////////////////////
+% projectInitialPlots.m
+% A script that replicates Figure 9.12 of:
+% D. Arfib, F. Keiler, and U. Zölzer.DAFx: Digital Audio Effects, chapter
+% Source-filter Processing, pages 299?372. John Wiley & Sons, Ltd, 2004
+%
+%
+% Modifications and comments by Patrick Ignoto (Student I.D.: 260280956)
+%//////////////////////////////////////////////////////////////////////////
+
 %Constant definitions
-N = 2048;
-N1 = 150;
-win = hanning(N);
+N = 2048;           %Frame length
+N1 = 150;           %Low-pass cepstrum window order
+win = hanning(N);   %Window for source signal
+%Low-pass cepstrum window based on equation 9.24 in paper
 wLP = [1, 2*ones(1, N1 - 2), 1, zeros(1, N - N1)]';
 
 %Read in audio signal
 [xin, fs] = audioread('./solfege-la.wav');
 freq=(0:N-1)/N*fs/1000;      % frequencies in kHz
-%Take frame of audio signal
+
+%Take frame of audio signal, one channel, somewhere in the middle of the sound
 xin = xin(:,1);
 x = xin((1:N) + 20000);
 

@@ -1,16 +1,32 @@
+%//////////////////////////////////////////////////////////////////////////
+% projectCrossSynthesis.m
+% A script that performs homomorphic cross-synthesis using cepstrum
+% analysis techniques to perform source-filter separation.
+% Based on:
+%
+%
+% D. Arfib, F. Keiler, and U. Zölzer.DAFx: Digital Audio Effects, chapter
+% Source-filter Processing, pages 299?372. John Wiley & Sons, Ltd, 2004
+%
+%
+% Modifications and comments by Patrick Ignoto (Student I.D.: 260280956)
+%//////////////////////////////////////////////////////////////////////////
+
 %Constant definitions
-N = 1024;
-hop = 256;
-w1 = hanning(N);
-w2 = w1;
-order1 = 30;
-order2 = 30;
+N = 1024;       %Frame length
+hop = 256;      %Hop Size
+w1 = hanning(N);%Window for carrier sound   
+w2 = w1;        %Window for modulator sound 
+order1 = 30;    %Low-pass cepstrum window order for carrier sound
+order2 = 30;    %Low-pass cepstrum window order for modulator sound
 
 %Read in audio signals to cross synthesize
+%Carrier Signal
 [sound1, fs] = audioread('../Audio/SourceSounds/xjs-14-xsynth-speech-car-plane.wav');
+%Modulator Signal
 sound2 = audioread('../Audio/SourceSounds/xjs-14-xsynth-speech-mod.wav');
 
-%Reduce to 1 channel (if necessary) and pad with zeros
+%Reduce to 1 channel (if necessary), pad with zeros, and normalize
 L = min(length(sound1), length(sound2));
 sound1 = [zeros(N,1); sound1(:, 1); zeros(N-mod(L,hop),1)]/max(abs(sound1(:,1)));
 sound2 = [zeros(N,1); sound2(:, 1); zeros(N-mod(L,hop),1)]/max(abs(sound2(:,1)));
@@ -21,7 +37,7 @@ soundOut = zeros(L, 1);
 startPt = 0;
 endPt = L-N;
 
-%While there are still samples to process
+%Start overlap-add loop to cross-synthesize sound
 while startPt < endPt
     %Take a windowed frame of each sound
     frame1 = sound1(startPt+1:startPt+N).*w1;

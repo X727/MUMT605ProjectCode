@@ -38,6 +38,19 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-8",
+					"linecount" : 5,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 636.5, 567.0, 315.0, 74.0 ],
+					"style" : "",
+					"text" : "Patch performs homomorphic cross-synthesis using Cepstrum techniques. Based on  D. Arfib, F. Keiler, and U. Zölzer.DAFx: Digital Audio Effects, chapter Source-filter Processing, pages 299–372. John Wiley & Sons, Ltd, 2004. Patch by Patrick Ignoto."
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-35",
 					"maxclass" : "newobj",
 					"numinlets" : 2,

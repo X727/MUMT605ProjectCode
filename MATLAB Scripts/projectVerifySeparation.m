@@ -1,21 +1,37 @@
+%//////////////////////////////////////////////////////////////////////////
+% projectInitialPlots.m
+% A script that creates figure that shows source-filter separation
+% using cepstrum analysis based on:
+% D. Arfib, F. Keiler, and U. Zölzer.DAFx: Digital Audio Effects, chapter
+% Source-filter Processing, pages 299?372. John Wiley & Sons, Ltd, 2004
+%
+%
+% Modifications and comments by Patrick Ignoto (Student I.D.: 260280956)
+%//////////////////////////////////////////////////////////////////////////
+
 %Constant definitions
-N = 2048;
-N1 = 150;
-win = hanning(N);
+N = 2048;           %Frame length
+N1 = 150;           %Low-pass cepstrum window order
+win = hanning(N);   %Window for source signal
+%Low-pass cepstrum window based on equation 9.24 in paper
 wLP = [1, 2*ones(1, N1 - 2), 1, zeros(1, N - N1)]';
+%Complementary High-pass cepstrum window
 wHP = [zeros(1, N1), 1, 2*ones(1, (N-N1-2)), 1]';
 
 %Read in audio signal
 [xin, fs] = audioread('./solfege-la.wav');
 freq=(0:N-1)/N*fs/1000;      % frequencies in kHz
 
+%Create 4th order Butterworth filter
 [b, a] = butter(4, 0.25, 'low');
+%Get the Impulse response
 [h, w] = freqz(b,a, N/2);
+%Convolve input audio signal
 yin = filter(b, a, xin);
 %Take frame of audio signal
 xin = xin(:,1);
 x = xin((1:N) + 20000);
-%Take frame of filtered audio signal
+%Take frame of filtered audio signal, one channel, somewhere in the middle of the sound
 yin = yin(:,1);
 y = yin((1:N) + 20000);
 
