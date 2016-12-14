@@ -38,12 +38,25 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-16",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 403.0, 209.0, 41.0, 22.0 ],
+					"style" : "",
+					"text" : "gate~"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-18",
 					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 126.5, 351.0, 276.0, 60.0 ],
+					"patching_rect" : [ 126.5, 404.0, 276.0, 60.0 ],
 					"style" : "",
 					"text" : "This Patch allows you to perform cross synthesis using any \"Modulator\" signal you provide and a carrier signal you provide or one of the basic sounds provided above. Patch by Patrick Ignoto."
 				}
@@ -228,7 +241,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 599.0, 367.0, 85.0, 37.0 ],
+					"patching_rect" : [ 599.0, 420.0, 85.0, 37.0 ],
 					"style" : "",
 					"text" : "Turn DAC on or off"
 				}
@@ -241,7 +254,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 472.0, 272.0, 107.0, 24.0 ],
+					"patching_rect" : [ 472.0, 325.0, 107.0, 24.0 ],
 					"style" : "",
 					"text" : "Gain Control"
 				}
@@ -385,7 +398,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 449.0, 245.0, 22.0, 140.0 ],
+					"patching_rect" : [ 449.0, 298.0, 22.0, 140.0 ],
 					"style" : ""
 				}
 
@@ -396,7 +409,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 534.0, 363.0, 45.0, 45.0 ],
+					"patching_rect" : [ 534.0, 416.0, 45.0, 45.0 ],
 					"style" : ""
 				}
 
@@ -408,7 +421,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 403.0, 193.0, 211.0, 22.0 ],
+					"patching_rect" : [ 403.0, 246.0, 211.0, 22.0 ],
 					"style" : "",
 					"text" : "pfft~ CepstrumCrossSynth 1024 4 0 1"
 				}
@@ -462,10 +475,19 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 458.5, 420.0, 590.0, 420.0, 590.0, 354.0, 569.5, 354.0 ],
+					"midpoints" : [ 458.5, 473.0, 590.0, 473.0, 590.0, 407.0, 569.5, 407.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -475,17 +497,17 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 458.5, 408.0, 517.0, 408.0, 517.0, 356.0, 543.5, 356.0 ],
+					"midpoints" : [ 458.5, 461.0, 517.0, 461.0, 517.0, 409.0, 543.5, 409.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-26", 0 ],
+					"destination" : [ "obj-16", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 290.5, 189.0, 389.0, 189.0, 389.0, 189.0, 412.5, 189.0 ],
+					"midpoints" : [ 290.5, 199.0, 434.5, 199.0 ],
 					"source" : [ "obj-22", 0 ]
 				}
 
@@ -514,7 +536,7 @@
 					"destination" : [ "obj-2", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 412.5, 231.0, 458.5, 231.0 ],
+					"midpoints" : [ 412.5, 284.0, 458.5, 284.0 ],
 					"source" : [ "obj-26", 0 ]
 				}
 
@@ -609,6 +631,16 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 679.5, 176.0, 412.5, 176.0 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
